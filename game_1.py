@@ -1,32 +1,27 @@
-#импорт библиотеки в системуа
+# импорт библиотеки в системуа
 import random
 
-#присвоение переменной значений кортежа
+# присвоение переменной значений кортежа
 words_list = ('линейка', 'карандаш', 'ластик', 'ручка',
-                'пенал', 'циркуль', 'корректор')
+              'пенал', 'циркуль', 'корректор')
 
-#реализация рандомного выбора из переменной words_list
+# реализация рандомного выбора из переменной words_list
 secret_word = random.choice(words_list)
-#print(secret_word)
+# print(secret_word)
 
-#слово secret_word из рандомного выбора, скрытое от пользователя звездочками
+# слово secret_word из рандомного выбора, скрытое от пользователя звездочками
 users_word = ['*'] * len(secret_word)
 # print(''.join(users_word))
 #
 # users_word[2] = 'у'
 # print(''.join(users_word))
 
-#присвоение переменной алфавита в виде кортежа
+# присвоение переменной алфавита в виде кортежа
 kirill = 'абвгдежзийклмнопрстуфхцчшщъыьэюяАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+print('Загадано слово из канцелярии. Допустимо 7 ошибок')
 
-#счетчик ошибок
+# счетчик ошибок
 errors_counter = 0
-
-# while True:
-#   print('сыграем?')
-#  yes = input('для согласия введите +: ') # берем введенное значение
-# if yes == '+': #проверка условия, что должен быть введен +
-print('Загадан предмет из канцелярии')
 
 while True:
     letter = input('введите ОДНУ букву: ').lower()  # берем введеную букву
@@ -40,20 +35,30 @@ while True:
         if '*' not in users_word:  # проверка, что слово угадано, нет звездочек в слове игрока
             print('вы выйграли! :)')
             print('\t\tбыло загадано слово', secret_word.upper())
-            break
-
+            yes = input('сыграем еще? для согласия, введи + : ')
+            if yes == '+':
+                errors_counter = 0
+                secret_word = random.choice(words_list)
+                users_word = ['*'] * len(secret_word)
+                continue
+            else:
+                print('до встречи')
+                break
     else:
         errors_counter += 1  # если игрок не угадал, к счетчику прибавляется единица
         print('\tошибок допущено: ', errors_counter)
         if errors_counter == 8:  # условие на количество ошибок
             print('вы проиграли :(')
-            break
+            yes = input('сыграем еще? для согласия, введи + : ')
+            if yes == '+':
+                errors_counter = 0
+                secret_word = random.choice(words_list)
+                users_word = ['*'] * len(secret_word)
+                continue
+            else:
+                print('до встречи')
+                break
 
     print(''.join(users_word))  # выводит угаданные части слова вместе со скрытыми под звездочками
 
-print('до встречи')
 print(input('для выхода нажмите любую клавишу: '))
-
-#    else:
-#       print('пока пока')
-#      break
